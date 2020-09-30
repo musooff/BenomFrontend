@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Row, Button, Form, Jumbotron } from 'react-bootstrap'
-import { useHistory } from 'react-router-dom';
+import { Container, Button, Form, Jumbotron } from 'react-bootstrap'
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
@@ -38,8 +37,6 @@ export default class CreateShop extends Component {
                     handleSubmit,
                     handleChange,
                     values,
-                    touched,
-                    isValid,
                     errors
                 }) => (
                         <Container className="pt-5">
