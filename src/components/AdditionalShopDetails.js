@@ -3,6 +3,50 @@ import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 export default class AdditionalShopDetails extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            province: null,
+            city: null,
+            provinces: [{
+                "name": "Вилояти Суғд",
+                "id": 149
+            },]
+        }
+    }
+
+    componentDidMount() {
+        fetch("http://localhost:8080/constants/province/all")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        provinces: result
+                    })
+                    console.log(this.state.provinces)
+                }
+            )
+    }
+
+    provinceSelect = (event) => {
+        var provinceId = event.target.value
+        var province = this.state.provinces.find(province => province.id == provinceId)
+        this.setState({
+            province: province
+        })
+    
+    }
+
+    citySelect = (event) => {
+        var cityId = event.target.value
+        var city = this.state.province.cities.find(city => city.id == cityId)
+        this.setState({
+            city: city
+        })
+    }
+
+
     render() {
         return (
             <Container className="pt-5">
@@ -27,22 +71,24 @@ export default class AdditionalShopDetails extends Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridProvince">
                             <Form.Label>Province</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose...">
+                            <Form.Control as="select" defaultValue="Choose..." onChange={this.provinceSelect}>
                                 <option>Choose...</option>
-                                <option>Sughd</option>
-                                <option>NTM</option>
-                                <option>Khatlon</option>
-                                <option>Badakhshon</option>
+                                {
+                                    this.state.provinces.map(function (province) {
+                                        return <option key={province.id} value={province.id}>{province.name}</option>
+                                    })
+                                }
                             </Form.Control>
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridCity">
                             <Form.Label>City</Form.Label>
                             <Form.Control as="select" defaultValue="Choose...">
                                 <option>Choose...</option>
-                                <option>Khujand</option>
-                                <option>Istaravshan</option>
-                                <option>Gonchi</option>
-                                <option>Nov</option>
+                                {
+                                    this.state.province?.cities.map(function (city) {
+                                        return <option key={city.id} value={city.id}>{city.name}</option>
+                                    })
+                                }
                             </Form.Control>
                         </Form.Group>
 
