@@ -9,7 +9,7 @@ import Dashboard from './components/Dashboard';
 
 function App() {
   return (
-    <>
+    <div className="bg">
       <Router>
         <Switch>
           <Route path="/" exact component={Home} />
@@ -18,7 +18,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
       </Router>
-    </>
+    </div>
   );
 }
 

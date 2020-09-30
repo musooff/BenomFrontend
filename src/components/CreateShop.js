@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Button, Form } from 'react-bootstrap'
+import { Container, Row, Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 export default class CreateShop extends Component {
 
     render() {
         return (
-            <Container>
-                <Row>
+            <Container className="pt-5">
+                <Row className="justify-content-center">
                     <Form>
                         <Form.Group controlId="shopName">
                             <Form.Label>Shop name</Form.Label>
@@ -23,7 +23,7 @@ export default class CreateShop extends Component {
                         </Form.Group>
 
                         <Link to="/shop/create/additional">
-                            <Button variant="dark" type="submit">
+                            <Button variant="dark" type="submit" className="">
                                 Create my shop
                             </Button>
                         </Link>

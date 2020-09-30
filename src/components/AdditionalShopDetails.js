@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 export default class AdditionalShopDetails extends Component {
     render() {
         return (
-            <Container>
-                <Form>
+            <Container className="pt-5">
+                <Form className="justify-content-center">
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridFirstName">
                             <Form.Label>First Name</Form.Label>
@@ -25,23 +25,24 @@ export default class AdditionalShopDetails extends Component {
                     </Form.Group>
 
                     <Form.Row>
-                        <Form.Group as={Col} controlId="formGridCity">
-                            <Form.Label>Province</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose...">
-                                <option>Khujand</option>
-                                <option>Istaravshan</option>
-                                <option>Gonchi</option>
-                                <option>Nov</option>
-                            </Form.Control>
-                        </Form.Group>
-
                         <Form.Group as={Col} controlId="formGridProvince">
                             <Form.Label>Province</Form.Label>
                             <Form.Control as="select" defaultValue="Choose...">
+                                <option>Choose...</option>
                                 <option>Sughd</option>
                                 <option>NTM</option>
                                 <option>Khatlon</option>
                                 <option>Badakhshon</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formGridCity">
+                            <Form.Label>City</Form.Label>
+                            <Form.Control as="select" defaultValue="Choose...">
+                                <option>Choose...</option>
+                                <option>Khujand</option>
+                                <option>Istaravshan</option>
+                                <option>Gonchi</option>
+                                <option>Nov</option>
                             </Form.Control>
                         </Form.Group>
 
@@ -51,10 +52,10 @@ export default class AdditionalShopDetails extends Component {
                         </Form.Group>
                     </Form.Row>
 
-                    <Form.Row>
-                        <Button variant="secondary" type="cancel">
+                    <Form.Row className="justify-content-end">
+                        <Button variant="secondary" type="cancel" className="mr-2">
                             Go Back
-                    </Button>
+                        </Button>
                         <Link to="/dashboard">
                             <Button variant="dark" type="submit">
                                 Submit
