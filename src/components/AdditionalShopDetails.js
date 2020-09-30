@@ -24,7 +24,6 @@ export default class AdditionalShopDetails extends Component {
                     this.setState({
                         provinces: result
                     })
-                    console.log(this.state.provinces)
                 }
             )
     }

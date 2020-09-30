@@ -1,36 +1,74 @@
 import React, { Component } from 'react'
-import { Container, Row, Button, Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Container, Row, Button, Form, Jumbotron } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
+
+const schema = Yup.object({
+    name: Yup.string().required(),
+});
 
 export default class CreateShop extends Component {
 
+    isShopAvailable = (name) => {
+        fetch(`http://localhost:8080/shop/exists?name=${name}`)
+            .then(res => res.json())
+            .then((result) => {
+                if (result.value) {
+                    alert(`A shop with a name ${name} already exists`);
+                }
+                else {
+                    this.props.history.push(`/shop/create/additional/${name}`)
+                }
+            }
+            )
+    }
+
     render() {
         return (
-            <Container className="pt-5">
-                <Row className="justify-content-center">
-                    <Form>
-                        <Form.Group controlId="shopName">
-                            <Form.Label>Shop name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter your shop name" />
-                        </Form.Group>
-                        <Form.Group controlId="phoneNumber">
-                            <Form.Label>Phone number</Form.Label>
-                            <Form.Control type="phoneNumber" placeholder="923332211" />
-                        </Form.Group>
-                        <Form.Group controlId="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Enter a new password" />
-                        </Form.Group>
+            <Formik
+                validationSchema={schema}
+                onSubmit={(values, actions) => {
+                    this.isShopAvailable(values.name)
+                }}
+                initialValues={{
+                    name: ''
+                }}>
+                {({
+                    handleSubmit,
+                    handleChange,
+                    values,
+                    touched,
+                    isValid,
+                    errors
+                }) => (
+                        <Container className="pt-5">
+                            <Jumbotron>
+                                <Form noValidate onSubmit={handleSubmit}>
+                                    <Form.Row className="justify-content-center">
+                                        <Form.Group controlId="shopName">
+                                            <Form.Label>Shop name</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                name="name"
+                                                placeholder="Enter your shop name"
+                                                onChange={handleChange}
+                                                value={values.name}
+                                                isInvalid={!!errors.name} />
+                                            <Form.Control.Feedback type="invalid">
+                                                Please enter shop name
+                                            </Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row className="justify-content-center">
+                                        <Button variant="dark" type="submit">Create my shop</Button>
+                                    </Form.Row>
+                                </Form>
+                            </Jumbotron>
+                        </Container>
+                    )}
 
-                        <Link to="/shop/create/additional">
-                            <Button variant="dark" type="submit" className="">
-                                Create my shop
-                            </Button>
-                        </Link>
-                    </Form>
-
-                </Row>
-            </Container>
+            </Formik>
         );
     }
 }

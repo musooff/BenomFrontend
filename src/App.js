@@ -9,16 +9,14 @@ import Dashboard from './components/Dashboard';
 
 function App() {
   return (
-    <div className="bg">
-      <Router>
+    <Router>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/shop/create" exact component={CreateShop} />
-          <Route path="/shop/create/additional" component={AdditionalShopDetails} />
+          <Route path="/shop/create/additional/:name" component={AdditionalShopDetails} />
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
       </Router>
-    </div>
   );
 }
 
